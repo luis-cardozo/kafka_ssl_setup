@@ -34,3 +34,16 @@ services:
       - "8080:8080"
     volumes:
       - ./client_certs:/certs
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:9092"
+      KAFKA_TRUSTSTORE: '/certs/kafka.server.truststore.jks'
+      KAFKA_KEYSTORE: '/certs/kafka.server.keystore.jks'
+    depends_on:
+      - kafka
+     
